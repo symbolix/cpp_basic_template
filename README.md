@@ -1,6 +1,6 @@
-# README #
+# A Basic C++ Template #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This is a basic C++ template that is designed to work with Vim and CMake.
 
 ### What is this repository for? ###
 
