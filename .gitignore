@@ -1,7 +1,7 @@
 # Folders
 .directory
 build/*
-bin/*
+targets/*
 
 # OSX directory cache files
 .DS_Store
