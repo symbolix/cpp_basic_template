@@ -1,0 +1,56 @@
+" ;-----------------------------------------------------------------------------
+" ; Local VIM Project Configuration File
+" ;-----------------------------------------------------------------------------
+" Project settings
+let g:vix_current_project.root = g:localvimrc_script_dir
+let g:vix_current_project.name = 'working'
+
+" Build (tmux/shell).
+let g:vix_current_project.command.build.prefix =
+    \ 'cd ' . ' ' . g:vix_current_project.root . ';'
+let g:vix_current_project.command.build.body =
+    \ 'rm -rf ./build/*; cd ./build; cmake ..; cp compile_commands.json ../;'
+let g:vix_current_project.command.build.postfix =
+    \ 'cd' . ' ' . g:vix_current_project.root
+
+" Make (tmux/shell).
+let g:vix_current_project.command.make.prefix =
+    \ 'cd' . ' ' . g:vix_current_project.root . ';'
+let g:vix_current_project.command.make.body =
+    \ 'cd ./build; make;'
+let g:vix_current_project.command.make.postfix =
+    \ 'cd' . ' ' . g:vix_current_project.root
+
+" Run (tmux/shell).
+let g:vix_current_project.command.run.prefix =
+    \ 'cd' . ' ' . g:vix_current_project.root . ';'
+let g:vix_current_project.command.run.body =
+    \ 'cd ./build; ./' . g:vix_current_project.name . '/bin/' . g:vix_current_project.name .';'
+let g:vix_current_project.command.run.postfix =
+            \ 'cd' . ' ' . g:vix_current_project.root
+
+" Make (vim-dispatch)
+let g:vix_current_project.dispatch.make.args =
+    \ 'cd' . ' ' . g:localvimrc_script_dir . '/build && make'
+
+" Build (vim-dispatch)
+if filereadable(g:vix_current_project.root . '/build.sh')
+    let g:vix_current_project.dispatch.build.args = 'cd ' .
+                \ g:vix_current_project.root . '; ' . './build.sh'
+else
+    let g:vix_current_project.dispatch.build.args =
+                \ 'cd ' . g:vix_current_project.root . '; ' .
+                \ 'rm -rf ./build/*; cd ./build; cmake ..; cp compile_commands.json ../; ' .
+                \ 'cd ' . g:vix_current_project.root
+endif
+
+" Run (vim-dispatch)
+if filereadable(g:vix_current_project.root . '/run.sh')
+    let g:vix_current_project.dispathc.run.args = 'cd ' .
+                \ g:vix_current_project.root . '; ' . './run.sh'
+else
+    let g:vix_current_project.dispatch.run.args = g:vix_current_project.root .
+                \ '/build/' . g:vix_current_project.name .
+                \ '/bin/' . g:vix_current_project.name
+endif
+" vim: ft=vim
