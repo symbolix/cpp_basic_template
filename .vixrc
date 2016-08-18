@@ -1,19 +1,26 @@
 " ;-----------------------------------------------------------------------------
 " ; Local VIM Project Configuration File
 " ;-----------------------------------------------------------------------------
-" Project settings
-let g:vix_current_project.root = g:localvimrc_script_dir
-let g:vix_current_project.name = 'working'
 
-" Build (tmux/shell).
+" ;-----------------------------------------------------------------------------
+" ; Project Settings
+" ;-----------------------------------------------------------------------------
+let g:vix_current_project.root = g:localvimrc_script_dir
+let g:vix_current_project.name = 'myApp'
+
+" ;-----------------------------------------------------------------------------
+" ; Build (tmux/shell).
+" ;-----------------------------------------------------------------------------
 let g:vix_current_project.command.build.prefix =
-    \ 'cd ' . ' ' . g:vix_current_project.root . ';'
+    \ 'cd' . ' ' . g:vix_current_project.root . ';'
 let g:vix_current_project.command.build.body =
     \ 'rm -rf ./build/*; cd ./build; cmake ..; cp compile_commands.json ../;'
 let g:vix_current_project.command.build.postfix =
     \ 'cd' . ' ' . g:vix_current_project.root
 
-" Make (tmux/shell).
+" ;-----------------------------------------------------------------------------
+" ; Make (tmux/shell).
+" ;-----------------------------------------------------------------------------
 let g:vix_current_project.command.make.prefix =
     \ 'cd' . ' ' . g:vix_current_project.root . ';'
 let g:vix_current_project.command.make.body =
@@ -21,22 +28,37 @@ let g:vix_current_project.command.make.body =
 let g:vix_current_project.command.make.postfix =
     \ 'cd' . ' ' . g:vix_current_project.root
 
-" Run (tmux/shell).
+" ;-----------------------------------------------------------------------------
+" ; Run (tmux/shell).
+" ;-----------------------------------------------------------------------------
 let g:vix_current_project.command.run.prefix =
-    \ 'cd' . ' ' . g:vix_current_project.root . ';'
+            \ 'cd' . ' ' . g:vix_current_project.root . ';'
 let g:vix_current_project.command.run.body =
-    \ 'cd ./build; ./' . g:vix_current_project.name . '/bin/' . g:vix_current_project.name .';'
+            \ 'cd ./build; ./' . g:vix_current_project.name . '/bin/' . g:vix_current_project.name .';'
 let g:vix_current_project.command.run.postfix =
             \ 'cd' . ' ' . g:vix_current_project.root
 
-" Make (vim-dispatch)
-let g:vix_current_project.dispatch.make.args =
-    \ 'cd' . ' ' . g:localvimrc_script_dir . '/build && make'
+" ;-----------------------------------------------------------------------------
+" ; Make (vim-dispatch)
+" ;-----------------------------------------------------------------------------
+" First check for a "make.sh" script.
+if filereadable(g:vix_current_project.root . '/make.sh')
+    let g:vix_current_project.dispatch.make.args = 'cd ' .
+                \ g:vix_current_project.root . '; ' . './make.sh'
+" If the "make.sh" is not present, continue with the internal call.
+else
+    let g:vix_current_project.dispatch.make.args =
+                \ 'cd' . ' ' . g:localvimrc_script_dir . '/build && make'
+endif
 
-" Build (vim-dispatch)
+" ;-----------------------------------------------------------------------------
+" ; Build (vim-dispatch)
+" ;-----------------------------------------------------------------------------
+" First check for a "build.sh" script.
 if filereadable(g:vix_current_project.root . '/build.sh')
     let g:vix_current_project.dispatch.build.args = 'cd ' .
                 \ g:vix_current_project.root . '; ' . './build.sh'
+" If the "build.sh" is not present, continue with the internal call.
 else
     let g:vix_current_project.dispatch.build.args =
                 \ 'cd ' . g:vix_current_project.root . '; ' .
@@ -44,10 +66,24 @@ else
                 \ 'cd ' . g:vix_current_project.root
 endif
 
-" Run (vim-dispatch)
+" ;-----------------------------------------------------------------------------
+" ; Clear (vim-dispatch)
+" ;-----------------------------------------------------------------------------
+" TODO: Implement Clear (vim-dispatch)
+" Should clear the target bin/lib folder after the run.
+" But NOT before the next make, maybe the previos make did not work?!
+" Also implement checks for the targets? If target not present do not run?
+" We need target locations then to be passed to the internal call?
+" Like, for instance what is to be run? 
+
+" ;-----------------------------------------------------------------------------
+" ; Run (vim-dispatch)
+" ;-----------------------------------------------------------------------------
+" First check for a "run.sh" script.
 if filereadable(g:vix_current_project.root . '/run.sh')
     let g:vix_current_project.dispathc.run.args = 'cd ' .
                 \ g:vix_current_project.root . '; ' . './run.sh'
+" If the "run.sh" is not present, continue with the internal call.
 else
     let g:vix_current_project.dispatch.run.args = g:vix_current_project.root .
                 \ '/build/' . g:vix_current_project.name .

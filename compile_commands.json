@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/Users/muhittinbilginer/dev/cpp_projects/cpp_basic_template/build",
+  "command": "/usr/bin/clang++    -std=c++11 -stdlib=libc++ -D__MACOSX_CORE__ -I/Users/muhittinbilginer/dev/cpp_projects/cpp_basic_template/include    -Wno-deprecated-declarations -o CMakeFiles/myApp.dir/src/main.cpp.o -c /Users/muhittinbilginer/dev/cpp_projects/cpp_basic_template/src/main.cpp",
+  "file": "/Users/muhittinbilginer/dev/cpp_projects/cpp_basic_template/src/main.cpp"
+},
+{
+  "directory": "/Users/muhittinbilginer/dev/cpp_projects/cpp_basic_template/build",
+  "command": "/usr/bin/clang++    -std=c++11 -stdlib=libc++ -D__MACOSX_CORE__ -I/Users/muhittinbilginer/dev/cpp_projects/cpp_basic_template/include    -Wno-deprecated-declarations -o CMakeFiles/myApp.dir/src/hello.cpp.o -c /Users/muhittinbilginer/dev/cpp_projects/cpp_basic_template/src/hello.cpp",
+  "file": "/Users/muhittinbilginer/dev/cpp_projects/cpp_basic_template/src/hello.cpp"
+}
+]

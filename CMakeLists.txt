@@ -2,7 +2,7 @@
 # ; Initials
 # ;--------------------------------------------------------------------------------
 cmake_minimum_required(VERSION 2.8)
-project(working)
+project(myApp)
 
 # ;--------------------------------------------------------------------------------
 # ; Compiler Flags
@@ -19,13 +19,26 @@ add_compile_options(-Wno-deprecated-declarations)
 # ; Source Files
 # ;--------------------------------------------------------------------------------
 set(SOURCE_FILES
-        src/main.cpp)
+    ${PROJECT_SOURCE_DIR}/src/main.cpp
+    ${PROJECT_SOURCE_DIR}/src/hello.cpp
+)
+
+# ;--------------------------------------------------------------------------------
+# ; Haders Files
+# ;--------------------------------------------------------------------------------
+include_directories(
+    ${PROJECT_SOURCE_DIR}/include
+)
 
 # ;--------------------------------------------------------------------------------
 # ; Properties
 # ;--------------------------------------------------------------------------------
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}/bin)
+
+# ;--------------------------------------------------------------------------------
+# ; Compile
+# ;--------------------------------------------------------------------------------
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # ;--------------------------------------------------------------------------------
