@@ -1,6 +1,6 @@
 // main.cpp - A simple default cpp application.
 #include <iostream>
-#include "../include/hello.h"
+#include <hello.h>
 
 int main(int argc, char *argv[])
 {
